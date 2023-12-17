@@ -2,6 +2,7 @@ import { useState } from "react"
 import Todo from "./Todo"
 import { BUTTON_STYLE } from '../Reducer'
 import { Link } from "react-router-dom"
+import { Plus } from "lucide-react"
 
 function NoReducer() {
   const [todos, setTodos] = useState([]) 
@@ -73,8 +74,10 @@ function NoReducer() {
           onChange={(e) => setName(e.target.value)}
           className="w-80 h-12 px-4 -m-2 outline-none"
         />
-        <button className={BUTTON_STYLE} onClick={handleSubmit}>
-          ADD
+        <button 
+          className='text-white text-xl px-4 m-2 h-12 border border-gray-300 active:text-amber-300 active:border-amber-300 hover:text-amber-400 hover:border-amber-400'
+          onClick={handleSubmit}>
+          <Plus />
         </button>
       </form>
       <div className="flex flex-col justify-center items-center gap-4">

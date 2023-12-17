@@ -1,6 +1,7 @@
 import { useReducer, useState } from "react"
 import Todo from "./Todo"
 import { Link } from "react-router-dom"
+import { Plus } from "lucide-react"
 
 export const ACTIONS = {
   ADD_TODO : 'add-todo',
@@ -10,7 +11,7 @@ export const ACTIONS = {
   EDIT_TODO : 'edit-todo'
 }
 
-export const BUTTON_STYLE = 'text-white text-xl h-12 px-4 py-2 m-2 border border-gray-400 active:text-amber-300 active:border-amber-300 hover:text-amber-400 hover:border-amber-400 p-2'
+export const BUTTON_STYLE = 'text-white text-xl px-1 h-12 active:text-amber-300 active:border-amber-300 hover:text-amber-400 hover:border-amber-400'
 
 function reducer(todos,action) {
   switch (action.type) {
@@ -83,8 +84,10 @@ function Reducer() {
         onChange={e=>setName(e.target.value)}
         className="w-80 h-12 px-4 -m-2 outline-none"
       />
-      <button className={BUTTON_STYLE} onClick={handleSubmit}>
-        ADD
+      <button 
+        className='text-white text-xl px-4 m-2 h-12 border border-gray-300 active:text-amber-300 active:border-amber-300 hover:text-amber-400 hover:border-amber-400'
+        onClick={handleSubmit}>
+        <Plus />
       </button>
     </form>
     <div className="flex flex-col justify-center items-center gap-4">

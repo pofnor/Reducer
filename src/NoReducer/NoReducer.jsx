@@ -1,20 +1,20 @@
 import { useState } from "react"
 import Todo from "./Todo"
 import { BUTTON_STYLE } from '../Reducer'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
-function App() {
-  const [todos, setTodos] = useState([]);
-  const [name, setName] = useState("");
+function NoReducer() {
+  const [todos, setTodos] = useState([]) 
+  const [name, setName] = useState("") 
 
   function newTodo(name) {
-    return { id: Date.now(), name: name, complete: false };
+    return { id: Date.now(), name: name, complete: false } 
   }
 
   function handleSubmit(e) {
-    e.preventDefault();
-    setTodos((prevTodos) => [...prevTodos, newTodo(name)]);
-    setName("");
+    e.preventDefault() 
+    setTodos((prevTodos) => [...prevTodos, newTodo(name)]) 
+    setName("") 
   }
 
   function handleToggle(id) {
@@ -22,11 +22,11 @@ function App() {
       prevTodos.map((todo) =>
         todo.id === id ? { ...todo, complete: !todo.complete } : todo
       )
-    );
+    ) 
   }
 
   function handleDelete(id) {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id)) 
   }
 
   function handleAddComment(id, comment) {
@@ -34,7 +34,7 @@ function App() {
       prevTodos.map((todo) =>
         todo.id === id ? { ...todo, comment: comment } : todo
       )
-    );
+    ) 
   }
 
   function handleEdit(id, updatedName) {
@@ -42,20 +42,30 @@ function App() {
       prevTodos.map((todo) =>
         todo.id === id ? { ...todo, name: updatedName } : todo
       )
-    );
+    ) 
   }
 
   return (
     <>
+    <div className='flex flex-col mt-16 justify-center items-center text-gray-300 font-bold text-xl'>
+      Switch to
       <Link 
-        className='flex mt-16 justify-center items-center text-gray-300 font-bold text-xl hover:text-amber-400'
+        className='text-gray-300 font-bold text-lg hover:text-amber-400'
         to='/'
       >
-        Switch to Reducer Version
-      </Link>      
+        Reducer
+      </Link>
+      <Link 
+        className='text-gray-300 font-bold text-lg hover:text-amber-400'
+        to='/reducersaved'
+      >
+        Reducer Saved
+      </Link>
+      <h1 className="mt-10 text-amber-400">- No Reducer Version -</h1>
+    </div>
       <form
         onSubmit={handleSubmit}
-        className="flex justify-center items-center mt-20 mb-4"
+        className="flex justify-center items-center mt-4 mb-4"
       >
         <input
           type="text"
@@ -81,7 +91,7 @@ function App() {
         ))}
       </div>
     </>
-  );
+  ) 
 }
 
-export default App;
+export default NoReducer 

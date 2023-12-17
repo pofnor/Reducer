@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react"
+import { useReducer, useState, useEffect } from "react"
 import Todo from "./Todo"
 import { Link } from "react-router-dom"
 
@@ -48,9 +48,16 @@ function newTodo(name) {
   return { id:Date.now(), name:name, complete: false}
 }
 
-function Reducer() {
-  const [todos,dispatch] = useReducer(reducer,[])
+function ReducerSaved() {
+  const [todos, dispatch] = useReducer(reducer, [], (initial) => {
+    const storedTodos = localStorage.getItem("todos")
+    return storedTodos ? JSON.parse(storedTodos) : initial
+  })
   const [name,setName] = useState('')
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
 
   function handleSubmit(e){
     e.preventDefault()
@@ -70,11 +77,11 @@ function Reducer() {
       </Link>
       <Link 
         className='text-gray-300 font-bold text-lg hover:text-amber-400'
-        to='/reducersaved'
+        to='/'
       >
-        Reducer Saved
+        Reducer
       </Link>
-      <h1 className="mt-10 text-amber-400">- Reducer Version -</h1>
+      <h1 className="mt-10 text-amber-400">- Reducer Saved Version -</h1>
     </div>
     <form onSubmit={handleSubmit} className="flex justify-center items-center mt-4 mb-4">
       <input 
@@ -92,33 +99,8 @@ function Reducer() {
         return <Todo key={todo.id} name={name} todo={todo} dispatch={dispatch}/>
       })}
     </div>
-    <div className="flex flex-col justify-center items-center mt-8 p-4 bg-gray-800 text-white rounded">
-        <h2 className="text-2xl font-bold mb-4">Benefits of <span className="text-amber-400">useReducer</span></h2>
-        <ul className="list-disc pl-6">
-          <li className="mb-2">
-            <span className="font-bold">Predictable State Changes:</span> Reducer provides a centralized logic for
-            state transitions, ensuring predictability.
-          </li>
-          <li className="mb-2">
-          <span className="font-bold">Centralized Logic:</span> Reducer logic is separated, promoting cleaner
-            code structure and easier maintenance.
-          </li>
-          <li className="mb-2">
-          <span className="font-bold">Separation of Concerns:</span> Reducer logic is separate from component
-            logic, enhancing modularity.
-          </li>
-          <li className="mb-2">
-          <span className="font-bold">DevTools Integration:</span> Works seamlessly with browser dev tools for
-            better debugging.
-          </li>
-        </ul>
-        <div className="flex flex-col justify-center items-center mt-8 p-4 bg-gray-800 text-white rounded">
-          <p>Consider using <span className="text-amber-400">useReducer</span> when your state logic becomes more complex, and you need a structured approach to handle it.</p>
-          <p>For simpler cases, <span className="text-amber-400">useState</span> might be more concise and easier to understand.</p>
-        </div>
-      </div>
     </>
   )
 }
 
-export default Reducer
+export default ReducerSaved

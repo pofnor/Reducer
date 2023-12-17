@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Reducer from './Reducer'
 import NoReducer from './NoReducer/NoReducer'
+import ReducerSaved from './ReducerSaved'
 
 function App () {
   return (        
@@ -14,7 +15,12 @@ function App () {
         key={"Noreducer"}
         path={'/noreducer'}
         element={<NoReducer/>}
-      />            
+      />
+      <Route
+        key={"reducerSaved"}
+        path={'/reducersaved'}
+        element={<ReducerSaved/>}
+      />
     </Routes>    
   )
 }
